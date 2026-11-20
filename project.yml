@@ -1,0 +1,63 @@
+name: Swipe
+options:
+  bundleIdPrefix: com.roy.raunak
+  deploymentTarget:
+    iOS: "17.0"
+  xcodeVersion: "15.0"
+settings:
+  base:
+    SWIFT_VERSION: "5.0"
+    IPHONEOS_DEPLOYMENT_TARGET: "17.0"
+    TARGETED_DEVICE_FAMILY: "1,2"
+    MARKETING_VERSION: "1.0"
+    CURRENT_PROJECT_VERSION: "1"
+
+targets:
+  Swipe:
+    type: application
+    platform: iOS
+    sources:
+      - path: Swipe
+      - path: SwipeShared
+    info:
+      path: Swipe/Info.plist
+    entitlements:
+      path: Swipe/Swipe.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.roy.raunak.Swipe
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME: AccentColor
+        CODE_SIGN_ENTITLEMENTS: Swipe/Swipe.entitlements
+    dependencies:
+      - target: SwipeKeyboard
+        embed: true
+
+  SwipeKeyboard:
+    type: app-extension
+    platform: iOS
+    sources:
+      - path: SwipeKeyboard
+      - path: SwipeShared
+    info:
+      path: SwipeKeyboard/Info.plist
+    entitlements:
+      path: SwipeKeyboard/SwipeKeyboard.entitlements
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.roy.raunak.Swipe.Keyboard
+        APPLICATION_EXTENSION_API_ONLY: YES
+        CODE_SIGN_ENTITLEMENTS: SwipeKeyboard/SwipeKeyboard.entitlements
+        SKIP_INSTALL: YES
+
+  SwipeTests:
+    type: bundle.unit-test
+    platform: iOS
+    sources:
+      - path: SwipeTests
+    dependencies:
+      - target: Swipe
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.roy.raunak.SwipeTests
+        GENERATE_INFOPLIST_FILE: YES
